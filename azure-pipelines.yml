@@ -9,7 +9,11 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+- tag: '$(Build.BuildId)'
+- name: password_cert
+  value: MyPassword
+- name: environment
+  value: Deployment
 
 stages:
 - stage: Build
