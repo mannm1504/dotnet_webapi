@@ -12,7 +12,7 @@ variables:
 - name: tag
   value: '$(Build.BuildId)'
 - name: password_cert
-  value: MyPassword
+  value: Super_Password_99
 - name: environment
   value: Deployment
 - name: docker-repo
