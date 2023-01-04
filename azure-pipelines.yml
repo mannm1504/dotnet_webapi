@@ -15,6 +15,8 @@ variables:
   value: MyPassword
 - name: environment
   value: Deployment
+- name: docker-repo
+  value: minhman1504
 
 stages:
 - stage: Build
@@ -34,14 +36,23 @@ stages:
           # Write your PowerShell commands here.
           dotnet dev-certs https -ep ./https/weatherapi.pfx -p $(password_cert)
     - task: Docker@2
-      displayName: Build an image
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: dotnet-image
+        containerRegistry: 'DockerHubRegistry'
+        repository: '$(docker-repo)/dotnet-image'
+        command: 'buildAndPush'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
          $(tag)
         arguments: --build-arg PASSWORD_CERT=$(password_cert) --build-arg ENVIRONMENT=$(environment)
+    # - task: Docker@2
+    #   displayName: Build an image
+    #   inputs:
+    #     command: build
+    #     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+    #     repository: dotnet-image
+    #     tags: |
+    #      $(tag)
+    #     arguments: --build-arg PASSWORD_CERT=$(password_cert) --build-arg ENVIRONMENT=$(environment)
     - task: PowerShell@2
       inputs:
         targetType: 'inline'
