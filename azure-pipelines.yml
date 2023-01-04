@@ -41,7 +41,7 @@ stages:
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: dotnet-image
+        repository: '$(docker-repo)/dotnet-image'
         tags: |
          $(tag)
         arguments: --build-arg PASSWORD_CERT=$(password_cert) --build-arg ENVIRONMENT=$(environment)
