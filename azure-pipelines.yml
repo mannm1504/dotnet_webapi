@@ -42,3 +42,8 @@ stages:
         tags: |
          $(tag)
         arguments: --build-arg PASSWORD_CERT=$(password_cert) --build-arg ENVIRONMENT=$(environment)
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHubRegistry'
+        repository: 'dotnet-image'
+        command: 'push'
